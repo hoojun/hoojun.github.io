@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<input id="message"/>
+	<button id="btn">按钮</button>
+	<script type="text/javascript">
+
+	function handler ( data ) {
+      var ifrproxy = document.createElement('iframe');
+      ifrproxy.id = 'wenda_callback_iframe';
+      ifrproxy.style.display = 'none';
+      var url = "http://note_book.io/static/cross-domain/proxy.html";
+      if( typeof data == 'string' ) {
+          if( data == 'nologin' ) {
+              url = url + '#nologin';
+          }
+      }
+      else {
+          url = url + '#' + encodeURIComponent( JSON.stringify( data ));
+      }
+      ifrproxy.src = url;
+      document.body.appendChild(ifrproxy);
+
+      setTimeout( function () {
+          var ifrproxy = document.getElementById('wenda_callback_iframe');
+          document.body.removeChild( ifrproxy );
+      }, 300);
+    }
+
+		btn.addEventListener("click",function(){
+			//alert();
+			handler(message.value);
+		});
+
+	</script>
+</body>
+</html>
